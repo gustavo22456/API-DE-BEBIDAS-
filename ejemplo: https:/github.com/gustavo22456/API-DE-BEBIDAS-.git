@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <body style="background-color: #FAFAD2;"></body>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>API DE BEBIDAS</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+  </head>
+  <body>
+    </div class="row">
+    <div class="container">
+
+      <nav class="navbar bg-light">
+        <div class="container-fluid">
+          <a class="navbar-brand">Busqueda</a>
+          <form class="d-flex" role="search">
+            <input class="form-control me-2" type="search" placeholder="Search" font-family: Arial="Search" id="dato">
+            <button class="btn btn-success" type="button" onclick="getValueInput()" >Search</button>
+          </form>
+        </div>
+      </nav>
+
+      <h1 id="hola" class="text-center" ></h1>
+
+        <table class="table table-info">
+          <thead>
+            
+            <tr>
+              <th row="col">Codigo</th>
+              <th scope="col">Descripcion </th>
+              <th scope="col">Imagen</th>
+              <th scope="col">Nombre</th>
+              <th scope="col">Tipo</th>
+              <th scope="col">Categoria</th>
+    
+            </tr>
+          </thead>
+          <tbody id="datos">
+            <script>
+            var hola ="";
+            const getValueInput = () => {
+            var hola = document.getElementById("dato").value;
+            console.log(hola);
+            document.getElementById("hola").innerHTML=hola;
+            getData();
+              async function getData(){
+                const response= await fetch('https://www.thecocktaildb.com/api/json/v1/1/search.php?s='+ hola);
+                console.log(hola);
+                console.log(response);
+                const data= await response.json();
+                console.log(data);
+                length=data.drinks.length;
+                console.log(data);
+                var temp="";
+                  for(i=0;i<length;i++)
+                    {
+                      temp+="<tr>";
+                      temp+="<td>"+data.drinks[i].idDrink+"</td>";
+                      temp+="<td>"+data.drinks[i].strInstructions+"</td>";
+                      temp+="<td> <img src='"+data.drinks[i].strDrinkThumb+"' width =200 heigh = 200></img></td>";
+                      temp+="<td>"+data.drinks[i].strDrink+"</td>";
+                      temp+="<td>"+data.drinks[i].strGlass+"</td>";
+                      temp+="<td>"+data.drinks[i].strCategory+"</td>";
+                    }
+                  document.getElementById("datos").innerHTML=temp;
+              }
+            }
+          </script>
+        </tbody>
+      </table>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
+  </body>
+</html>
